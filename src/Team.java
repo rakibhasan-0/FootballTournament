@@ -26,35 +26,74 @@ public class Team {
         numberOfRedCards = 0;
     }
 
+    /**
+     *  That function will return the team name.
+     * @return the team name will be returned.
+     */
     public String getTeamName() {
        return teamName;
     }
 
 
+    /**
+     * That function will return the given team coach name.
+     * @return the team coach name will be returned.
+     */
     public String getCoachName(){
         return coachName;
     }
 
+    /**
+     * it will give the number of players that consists in the team.
+     * @return the number of players will be returned.
+     */
     public int getTotalNumberOfPlayers() {
         return totalPlayers;
     }
 
+    /**
+     * it will give the number of players that available for the next match.
+     * @return the current number of players will be returned.
+     */
     public int getNumberOfAvailablePlayers(){
+
         int currentPlayers = numPlayersInTeam;
         currentPlayers = currentPlayers - numberOfRedCards;
+
         int yellowCardsPlayers = numberOfYellowCards/2;
         currentPlayers = currentPlayers - yellowCardsPlayers;
 
         if(currentPlayers < 11){
             throw new RuntimeException("Opps not enough players");
         }
+
         numPlayersInTeam = currentPlayers;
         return currentPlayers;
 
     }
 
+    /**
+     * After a match a player should eligible to play again.
+     */
     public void updateTeamStatus(){
+        if(numPlayersInTeam < totalPlayers){
+            numPlayersInTeam++;
+        }
+    }
 
+
+    /**
+     * if any player gets yellow cards, it should be added.
+     */
+    public void addYellowCards(){
+        numberOfYellowCards++;
+    }
+
+    /**
+     * if any player gets red cards, it should be added.
+     */
+    public void addRedCards(){
+        numberOfRedCards++;
     }
 
 
