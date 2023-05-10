@@ -7,12 +7,13 @@
 // it will contain information about if there exists a red card or two yellow cards
 // in a team.
 
+import org.junit.jupiter.api.function.Executable;
+
 public class Team {
     private final String teamName;
     private final String coachName;
     // constructor for a team
     private int numPlayersInTeam;
-
     private int numberOfYellowCards;
     private int numberOfRedCards;
     private int totalPlayers;
@@ -27,7 +28,8 @@ public class Team {
     }
 
     /**
-     *  That function will return the team name.
+     * That function will return the team name.
+     *
      * @return the team name will be returned.
      */
     public String getTeamName() {
@@ -63,10 +65,6 @@ public class Team {
         int yellowCardsPlayers = numberOfYellowCards/2;
         currentPlayers = currentPlayers - yellowCardsPlayers;
 
-        if(currentPlayers < 11){
-            throw new RuntimeException("Opps not enough players");
-        }
-
         numPlayersInTeam = currentPlayers;
         return currentPlayers;
 
@@ -78,6 +76,12 @@ public class Team {
     public void updateTeamStatus(){
         if(numPlayersInTeam < totalPlayers){
             numPlayersInTeam++;
+        }
+        if(numberOfYellowCards > 0){
+            numberOfYellowCards--;
+        }
+        if(numberOfRedCards > 0){
+            numberOfRedCards--;
         }
     }
 
@@ -94,6 +98,14 @@ public class Team {
      */
     public void addRedCards(){
         numberOfRedCards++;
+    }
+
+    public int getTotalYellowCards(){
+        return numberOfYellowCards;
+    }
+
+    public int getNumberOfRedCards(){
+        return numberOfRedCards;
     }
 
 

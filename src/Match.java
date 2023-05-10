@@ -5,15 +5,13 @@ public class Match {
     private final Team teamNumber2;
     private Team winnerTeam;
     private Team loserTeam;
-    private int currentYellowForTeam1, currentYellowForTeam2, currentRedForTeam1,currentRedForTeam2;
+
 
     public Match(Team teamNumber1, Team teamNumber2) {
         this.teamNumber1 = teamNumber1;
         this.teamNumber2 = teamNumber2;
         winnerTeam = null;
         loserTeam = null;
-        currentYellowForTeam1 = currentYellowForTeam2 = currentRedForTeam1 = currentRedForTeam2 = 0;
-
     }
 
     public Team getWinnerTeam(){
@@ -30,21 +28,19 @@ public class Match {
     }
 
 
-    private void checkForYellowCardProbability(double probabilityOfYellowCard, Team teamNumber2, int num) {
+    private void checkForYellowCardProbability(double probabilityOfYellowCard, Team teamNumber2) {
         Random random = new Random();
         double rand = random.nextDouble();
         if (rand < probabilityOfYellowCard) {
             teamNumber2.addYellowCards();
-            num++;
         }
     }
 
-    private void checkForRedCardProbability(double probabilityOfRedCard, Team teamNumber, int num){
+    private void checkForRedCardProbability(double probabilityOfRedCard, Team teamNumber){
         Random random = new Random();
         double rand = random.nextDouble();
         if (rand < probabilityOfRedCard) {
             teamNumber.addYellowCards();
-            num++;
         }
     }
 
@@ -55,11 +51,25 @@ public class Match {
 
         double probabilityOfYellowCard = 0.02;
         double probabilityOfRedCard = 0.01;
+        int boundForFirstTeam = 6;
+        int boundForSecondTeam = 6;
+
 
         checkForCards(probabilityOfYellowCard, probabilityOfRedCard);
 
+        if(teamNumber1.getTotalYellowCards() > teamNumber2.getTotalYellowCards()){
+            boundForFirstTeam--;
+        }
+        if(teamNumber1.getTotalYellowCards() < teamNumber2.getTotalYellowCards()){
+            boundForSecondTeam--;
+        }
 
-
+        if(teamNumber1.getNumberOfRedCards() > teamNumber2.getNumberOfRedCards()){
+            boundForFirstTeam = boundForFirstTeam -2;
+        }
+        if(teamNumber1.getNumberOfRedCards() < teamNumber2.getNumberOfRedCards()){
+            boundForSecondTeam = boundForSecondTeam -2;
+        }
 
 
         int teamOneGoal = rand.nextInt(5);
@@ -79,10 +89,10 @@ public class Match {
     }
 
     private void checkForCards(double probabilityOfYellowCard, double probabilityOfRedCard) {
-        checkForYellowCardProbability(probabilityOfYellowCard, teamNumber1, currentYellowForTeam1);
-        checkForYellowCardProbability(probabilityOfYellowCard, teamNumber2, currentYellowForTeam2);
-        checkForRedCardProbability(probabilityOfRedCard, teamNumber1, currentRedForTeam1);
-        checkForRedCardProbability(probabilityOfRedCard, teamNumber2, currentRedForTeam2);
+        checkForYellowCardProbability(probabilityOfYellowCard, teamNumber1);
+        checkForYellowCardProbability(probabilityOfYellowCard, teamNumber2);
+        checkForRedCardProbability(probabilityOfRedCard, teamNumber1);
+        checkForRedCardProbability(probabilityOfRedCard, teamNumber2);
     }
 
 }
