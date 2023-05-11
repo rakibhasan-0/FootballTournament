@@ -10,6 +10,7 @@ public class Tournament {
     private int numOfTeams;
     private ArrayList<Team> teams;
     private ArrayList<Team> listOfWinningTeams;
+    private String winnerOfTournament;
 
     public Tournament (String tournamentName, int numOfTeams) throws IllegalArgumentException {
 
@@ -21,6 +22,7 @@ public class Tournament {
         this.numOfTeams = numOfTeams;
         teams = new ArrayList<Team>();
         listOfWinningTeams = new ArrayList<Team>();
+        winnerOfTournament = null;
 
     }
 
@@ -28,31 +30,60 @@ public class Tournament {
         teams.add(team);
     }
 
-    public void removeTeam(Team team) throws IllegalArgumentException {
-        teams.remove(team);
-    }
-
     public void tournamentSimulation(){
 
-        for (int i = 0; i < totalRound; i++){
+        for (int i = 1; i <= totalRound; i++){
+
             Collections.shuffle(teams);
-            List<Team> roundTeams = new ArrayList<>(teams);
+
+            List<Team> lostTeams = new ArrayList<>();
             List<Team> winningTeams = new ArrayList<>();
-            while (!roundTeams.isEmpty()) {
-                Team teamOne = roundTeams.remove(0);
-                Team teamTwo = roundTeams.remove(0);
+
+            while (!teams.isEmpty()) {
+
+                System.out.println("size == "+teams.size() + "currentRound"+i);
+
+                Team teamOne = teams.remove(0);
+                Team teamTwo = teams.remove(0);
+
+                if(i < 2){
+                    System.out.println("Round"+i+teamOne.getTeamName()+" vs "+teamTwo.getTeamName());
+                }
+                if(i == 3){
+                    System.out.println("Semi-Final"+teamOne.getTeamName()+" vs "+teamTwo.getTeamName());
+                }
+                if(i == 4){
+                    System.out.println("Final"+teamOne.getTeamName()+" vs "+teamTwo.getTeamName());
+                }
+
                 Match aMatch = new Match(teamOne, teamTwo);
                 aMatch.simulationOfMatch();
+
                 winningTeams.add(aMatch.getWinnerTeam());
-                aMatch.getLoserTeam().setEliminated();
+                lostTeams.add(aMatch.getLoserTeam());
+
+                if(i == 4){
+                    winnerOfTournament = aMatch.getWinnerTeam().getTeamName();
+                }
+
             }
+
             for (Team winningTeam : winningTeams) {
                 winningTeam.updateTeamStatus();
+                teams.add(winningTeam);
             }
-            teams.removeAll(winningTeams.stream().filter(t -> !t.isEliminated()).collect(Collectors.toList()));
+
+            for(Team lostTeam : lostTeams) {
+                teams.remove(lostTeam);
+            }
+            System.out.println("--------------------------------");
+
+
         }
     }
 
 
-
+    public String WinnerOfTheTournament() throws NullPointerException{
+        return winnerOfTournament;
+    }
 }

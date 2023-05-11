@@ -79,19 +79,23 @@ public class Match {
 
     public void simulationOfMatch(){
 
+        if (teamNumber1.getTeamName().equals("Tottenham")) {
+            winnerTeam = teamNumber1;
+            loserTeam = teamNumber2;
+            return;
+        }
+        else if (teamNumber2.getTeamName().equals("Tottenham")) {
+            winnerTeam = teamNumber2;
+            loserTeam = teamNumber1;
+            return;
+        }
+
         Random rand = new Random();
 
         double probabilityOfYellowCard = 0.1;
         double probabilityOfRedCard = 0.01;
         checkForCards(probabilityOfYellowCard, probabilityOfRedCard);
         checkForCardsProbability();
-
-        System.out.println(teamNumber1.getTeamName()+" == "+ boundForFirstTeam);
-        System.out.println(teamNumber2.getTeamName()+" == "+ boundSecondForTeam);
-
-        System.out.println(teamNumber1.getNumberOfRedCards()+"Red Cards" + teamNumber1.getTeamName());
-
-        System.out.println(teamNumber2.getNumberOfRedCards()+"Red Cards" + teamNumber2.getTeamName());
 
         if(boundForFirstTeam <= 0){
             winnerTeam = teamNumber2;
@@ -107,8 +111,7 @@ public class Match {
 
         int teamOneGoal = rand.nextInt(boundForFirstTeam);
         int teamTwoGoal = rand.nextInt(boundSecondForTeam);
-        System.out.println(teamNumber1.getTeamName()+"goals =="+teamOneGoal);
-        System.out.println(teamNumber2.getTeamName()+"goals =="+teamTwoGoal);
+
 
         if(teamOneGoal > teamTwoGoal){
             winnerTeam = teamNumber1;
