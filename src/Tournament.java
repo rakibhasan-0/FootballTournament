@@ -38,23 +38,28 @@ public class Tournament {
 
             List<Team> lostTeams = new ArrayList<>();
             List<Team> winningTeams = new ArrayList<>();
+            if(i < 2){
+                System.out.println("Round:"+i);
+                System.out.println("--------------------------------");
+            }
+            if(i == 3){
+                System.out.println("Semi-Final");
+                System.out.println("--------------------------------");
+            }
+            if(i == 4){
+                System.out.println("Final");
+                System.out.println("--------------------------------");
+            }
 
             while (!teams.isEmpty()) {
 
-                System.out.println("size == "+teams.size() + "currentRound"+i);
+                //System.out.println("size == "+teams.size() + "currentRound"+i);
 
                 Team teamOne = teams.remove(0);
                 Team teamTwo = teams.remove(0);
+                System.out.println(teamOne.getTeamName()+" vs "+teamTwo.getTeamName());
 
-                if(i < 2){
-                    System.out.println("Round"+i+teamOne.getTeamName()+" vs "+teamTwo.getTeamName());
-                }
-                if(i == 3){
-                    System.out.println("Semi-Final"+teamOne.getTeamName()+" vs "+teamTwo.getTeamName());
-                }
-                if(i == 4){
-                    System.out.println("Final"+teamOne.getTeamName()+" vs "+teamTwo.getTeamName());
-                }
+
 
                 Match aMatch = new Match(teamOne, teamTwo);
                 aMatch.simulationOfMatch();
