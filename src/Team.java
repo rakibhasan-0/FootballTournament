@@ -81,7 +81,7 @@ public class Team {
             numberOfYellowCards--;
         }
         if(numberOfRedCards > 0){
-            numberOfRedCards--;
+            numberOfRedCards = 0;
         }
     }
 

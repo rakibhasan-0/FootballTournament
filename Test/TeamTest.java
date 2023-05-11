@@ -31,21 +31,24 @@ class TeamTest {
 
     @Test
     void updateTeamStatus() {
+        Team t = new Team("Aston Villa","Unai Emry",19);
+        t.addRedCards(); // one player should not be available for the next match.
+        t.updateTeamStatus(); // one player should be available for the next match
+        assertEquals(19, t.getNumberOfAvailablePlayers());
     }
 
     @Test
     void addYellowCards() {
+        Team t = new Team("Aston Villa","Unai Emry",19);
+        t.addYellowCards();
+        assertEquals(1, t.getTotalYellowCards());
     }
 
     @Test
     void addRedCards() {
+        Team t = new Team("Aston Villa","Unai Emry",19);
+        t.addRedCards();
+        assertEquals(1,t.getNumberOfRedCards());
     }
 
-    @Test
-    void getTotalYellowCards() {
-    }
-
-    @Test
-    void getNumberOfRedCards() {
-    }
 }
