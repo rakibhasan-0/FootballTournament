@@ -18,18 +18,34 @@ public class Team {
     private int numberOfRedCards;
     private int totalPlayers;
 
-    public Team(String name, String coachName, int numPlayers){
+    private boolean eliminated;
+
+    public Team(String name, String coachName, int numPlayers) {
         this.teamName = name;
         this.coachName = coachName;
         this.numPlayersInTeam = numPlayers;
         totalPlayers = numPlayers;
         numberOfYellowCards = 0;
         numberOfRedCards = 0;
+        eliminated = false;
+    }
+
+    /***
+     * @return it checks whether the team is eliminated or not.
+     */
+    public boolean isEliminated() {
+        return eliminated;
     }
 
     /**
-     * That function will return the team name.
-     *
+     * @ return it sets true if the team is eliminated
+     */
+    public void setEliminated() {
+        eliminated = true;
+    }
+
+
+     /* That function will return the team name.
      * @return the team name will be returned.
      */
     public String getTeamName() {
